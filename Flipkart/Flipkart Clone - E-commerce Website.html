@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart - Online Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f1f2f4;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #2874f0, #1e5dc7);
+            color: white;
+            padding: 8px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 40px 10px 16px;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: #fff;
+            border: none;
+            padding: 0 16px;
+            cursor: pointer;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .header-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .header-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            height: 56px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 16px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #2874f0;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 30px;
+        }
+
+        .banner h2 {
+            font-size: 42px;
+            margin-bottom: 16px;
+            font-weight: 300;
+        }
+
+        .banner p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Categories */
+        .categories {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .category-name {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Products */
+        .products {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #dee2e6;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .product-original-price {
+            font-size: 14px;
+            color: #878787;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .product-discount {
+            font-size: 14px;
+            color: #388e3c;
+            font-weight: 500;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .rating-box {
+            background: #388e3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .rating-count {
+            font-size: 12px;
+            color: #878787;
+        }
+
+        /* Footer */
+        .footer {
+            background: #172337;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: #878787;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #2874f0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #454d5d;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #878787;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .search-container {
+                order: 3;
+                width: 100%;
+                max-width: none;
+                margin: 10px 0 0;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 20px;
+                height: auto;
+                padding: 12px 20px;
+            }
+
+            .banner h2 {
+                font-size: 28px;
+            }
+
+            .banner p {
+                font-size: 16px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div>
+                    <h1>Flipkart</h1>
+                    <div class="logo-subtitle">Explore <em>Plus</em> 🛒</div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for products, brands and more">
+                <button class="search-btn">🔍</button>
+            </div>
+
+            <div class="header-actions">
+                <a href="#" class="header-link">Login</a>
+                <a href="#" class="header-link">More ▼</a>
+                <a href="#" class="header-link">🛒 Cart</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-item">Electronics</a>
+            <a href="#" class="nav-item">TVs & Appliances</a>
+            <a href="#" class="nav-item">Men</a>
+            <a href="#" class="nav-item">Women</a>
+            <a href="#" class="nav-item">Baby & Kids</a>
+            <a href="#" class="nav-item">Home & Furniture</a>
+            <a href="#" class="nav-item">Sports, Books & More</a>
+            <a href="#" class="nav-item">Flights</a>
+            <a href="#" class="nav-item">Offer Zone</a>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <section class="banner">
+        <h2>Big Billion Days</h2>
+        <p>Unbelievable deals on your favorite products. Shop now and save big!</p>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="filterProducts('mobile')">
+                <div class="category-icon">📱</div>
+                <div class="category-name">Mobiles</div>
+            </div>
+            <div class="category-card" onclick="filterProducts('electronics')">
+                <div class="category-icon">💻</div>
+                <div class="category-name">Electronics</div>
+            </div>
+            <div class="category-card" onclick="filterProducts('fashion')">
+                <div class="category-icon">👕</div>
+                <div class="category-name">Fashion</div>
+            </div>
+            <div class="category-card" onclick="filterProducts('home')">
+                <div class="category-icon">🏠</div>
+                <div class="category-name">Home & Kitchen</div>
+            </div>
+            <div class="category-card" onclick="filterProducts('books')">
+                <div class="category-icon">📚</div>
+                <div class="category-name">Books</div>
+            </div>
+            <div class="category-card" onclick="filterProducts('sports')">
+                <div class="category-icon">⚽</div>
+                <div class="category-name">Sports</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <h2 class="section-title">Trending Products</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Flipkart Stories</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Help</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Payments</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Cancellation & Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Report Infringement</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Consumer Policy</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Social</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2007-2024 Flipkart.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data with image placeholders
+        const products = [
+            {
+                id: 1,
+                name: "Apple iPhone 15 (Blue, 128GB)",
+                price: "₹79,900",
+                originalPrice: "₹89,900",
+                discount: "11% off",
+                rating: 4.6,
+                ratingCount: "(1,234)",
+                category: "mobile",
+                image: "images/download.webp" // Replace with actual iPhone image
+            },
+            {
+                id: 2,
+                name: "Sony WH-1000XM4 Wireless Headphones",
+                price: "₹19,990",
+                originalPrice: "₹29,990",
+                discount: "33% off",
+                rating: 4.5,
+                ratingCount: "(856)",
+                category: "electronics",
+                image: "images/Sony.jpeg" // Replace with actual Sony headphones image
+            },
+            {
+                id: 3,
+                name: "Samsung Galaxy Watch 6",
+                price: "₹28,999",
+                originalPrice: "₹34,999",
+                discount: "17% off",
+                rating: 4.3,
+                ratingCount: "(642)",
+                category: "electronics",
+                image: "images/samsung watch.webp" // Replace with actual Samsung watch image
+            },
+            {
+                id: 4,
+                name: "Nike Air Max 270",
+                price: "₹8,995",
+                originalPrice: "₹12,995",
+                discount: "31% off",
+                rating: 4.4,
+                ratingCount: "(923)",
+                category: "fashion",
+                image: "images/shopping.webp" // Replace with actual Nike shoes image
+            },
+            {
+                id: 5,
+                name: "MacBook Air M2 (13-inch)",
+                price: "₹99,900",
+                originalPrice: "₹1,19,900",
+                discount: "17% off",
+                rating: 4.7,
+                ratingCount: "(445)",
+                category: "electronics",
+                image: "images/laptop.webp" // Replace with actual MacBook image
+            },
+            {
+                id: 6,
+                name: "Instant Pot Duo 7-in-1",
+                price: "₹7,999",
+                originalPrice: "₹12,999",
+                discount: "38% off",
+                rating: 4.2,
+                ratingCount: "(1,567)",
+                category: "home",
+                image: "images/instant.webp" // Replace with actual Instant Pot image
+            },
+            {
+                id: 7,
+                name: "The Psychology of Money",
+                price: "₹299",
+                originalPrice: "₹399",
+                discount: "25% off",
+                rating: 4.8,
+                ratingCount: "(2,134)",
+                category: "books",
+                image: "images/download.jpeg" // Replace with actual book cover image
+            },
+            {
+                id: 8,
+                name: "Yoga Mat Premium (6mm)",
+                price: "₹1,499",
+                originalPrice: "₹2,499",
+                discount: "40% off",
+                rating: 4.1,
+                ratingCount: "(789)",
+                category: "sports",
+                image: "images/shopping (1).webp" // Replace with actual yoga mat image
+            }
+        ];
+
+        let currentCategory = 'all';
+
+        // Function to render products
+        function renderProducts(productsToRender) {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display:none; width:100%; height:100%; background:#f8f9fa; align-items:center; justify-content:center; font-size:48px; color:#dee2e6;">📦</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            ${product.price}
+                            <span class="product-original-price">${product.originalPrice}</span>
+                            <span class="product-discount">${product.discount}</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="rating-box">
+                                ${product.rating} ⭐
+                            </div>
+                            <span class="rating-count">${product.ratingCount}</span>
+                        </div>
+                    </div>
+                `;
+                productCard.addEventListener('click', () => showProductDetails(product));
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Function to filter products by category
+        function filterProducts(category) {
+            currentCategory = category;
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filteredProducts = products.filter(product => product.category === category);
+                renderProducts(filteredProducts);
+            }
+        }
+
+        // Function to show product details (you can expand this)
+        function showProductDetails(product) {
+            alert(`Product: ${product.name}\nPrice: ${product.price}\nRating: ${product.rating} stars`);
+        }
+
+        // Search functionality
+        document.querySelector('.search-box').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm === '') {
+                if (currentCategory === 'all') {
+                    renderProducts(products);
+                } else {
+                    filterProducts(currentCategory);
+                }
+            } else {
+                const filteredProducts = products.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm)
+                );
+                renderProducts(filteredProducts);
+            }
+        });
+
+        // Search button functionality
+        document.querySelector('.search-btn').addEventListener('click', function () {
+            const searchTerm = document.querySelector('.search-box').value.toLowerCase();
+            if (searchTerm) {
+                const filteredProducts = products.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm)
+                );
+                renderProducts(filteredProducts);
+            }
+        });
+
+        // Initial render
+        renderProducts(products);
+
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                // You can add navigation logic here
+            });
+        });
+
+        // Header links functionality
+        document.querySelectorAll('.header-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const text = this.textContent;
+                if (text.includes('Cart')) {
+                    alert('Cart functionality would be implemented here');
+                } else if (text.includes('Login')) {
+                    alert('Login functionality would be implemented here');
+                } else {
+                    alert(`${text} functionality would be implemented here`);
+                }
+            });
+        });
+
+        // Add animation on scroll
+        window.addEventListener('scroll', function () {
+            const cards = document.querySelectorAll('.product-card, .category-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardVisible = 150;
+
+                if (cardTop < window.innerHeight - cardVisible) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
